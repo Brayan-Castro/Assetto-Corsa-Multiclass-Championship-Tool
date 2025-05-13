@@ -1,0 +1,70 @@
+[
+    {
+        "name": "Alpine", 
+        "drivers": ["Habsburg", "Schumacher"]
+    },
+    {
+        "name": "Aston LMH", 
+        "drivers": ["Gunn", "De Angelis"]
+    },
+    {
+        "name": "BMW LMH", 
+        "drivers": ["Magnussen", "Van der Linde"]
+    },
+    {
+        "name": "Cadillac LMH", 
+        "drivers": ["Nato", "Button"]
+    },
+    {
+        "name": "Ferrari LMH", 
+        "drivers": ["Fuoco", "Pier Guidi", "Kubica"]
+    },
+    {
+        "name": "Porsche LMH", 
+        "drivers": ["Christensen", "Vanthoor", "Pino"]
+    },
+    {
+        "name": "Peugeot LMH", 
+        "drivers": ["Jensen", "Jakobsen"]
+    },
+    {
+        "name": "Toyota LMH", 
+        "drivers": ["De Vries", "Buemi"]
+    },
+    {
+        "name": "Aston GT3", 
+        "drivers": ["Robichon", "Barrichello"]
+    },
+    {
+        "name": "BMW GT3", 
+        "drivers": ["Farfus", "Rossi"]
+    },
+    {
+        "name": "Corvette", 
+        "drivers": ["Edgar", "Andrade"]
+    },
+    {
+        "name": "Ferrari GT3", 
+        "drivers": ["Mann", "Castellacci"]
+    },
+    {
+        "name": "Mustang GT3", 
+        "drivers": ["Sousa", "Olsen"]
+    },
+    {
+        "name": "Lexus GT3", 
+        "drivers": ["Robin", "Schmid"]
+    },
+    {
+        "name": "Mclaren GT3", 
+        "drivers": ["Baud", "Gelael"]
+    },
+    {
+        "name": "Mercedes GT3", 
+        "drivers": ["Cressoni", "Martin"]
+    },
+    {
+        "name": "Porsche GT3", 
+        "drivers": ["Frey", "Pera"]
+    }
+]
