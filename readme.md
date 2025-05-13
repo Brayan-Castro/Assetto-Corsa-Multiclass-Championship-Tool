@@ -7,7 +7,7 @@ Technically you could use this on online races (as long as you follow the car na
 
 ## Features
 
-Ingame Timer app that acurately gets positions when the player force quits from a race;<br>
+Ingame Timer app that acurately gets positions when the player force quits from a race (will be added to this repo later);<br>
 Allows for the creation of custom championships and races based on the wec format, with, technically any GT3 and LMH car;<br>
 Allows for custom point system based on its class;<br>
 Losail and Bahrain reward 1.5x points, while La Sarthe rewards 2x;<br>
