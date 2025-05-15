@@ -17,4 +17,9 @@ Pole position on a race gives 1 extra point.<br>
 
 Visualization of points (as of now, the only way to see the points on a championship is by querying the db);<br>
 Add support for manufacturers championships (in progress);<br>
-Add GUI or atleast CLI.<br>
+Add GUI or atleast CLI;<br>
+Modulate and clean the code.
+
+## About teams.json
+
+Driver names need to match the driver names inside the game, the, team names can be anything you want.
