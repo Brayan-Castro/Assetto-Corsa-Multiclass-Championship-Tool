@@ -2,3 +2,6 @@ __pycache__/
 **/__pycache__/
 acLap_database.db
 .env
+testGUI.py
+untitled.ui
+acLapGUI.py

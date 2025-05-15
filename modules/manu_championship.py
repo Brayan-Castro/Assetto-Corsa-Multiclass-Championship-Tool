@@ -51,8 +51,8 @@ def set_eligible_drivers(race_result):
     
     return eligible_drivers
 
-    # This function creates a list of dicts with the keys 'team', 'driver' and 'points', based on the eligible driver for points on a team;
-    # And how many points he scored on a the last race;
+# This function creates a list of dicts with the keys 'team', 'driver' and 'points', based on the eligible driver for points on a team;
+# And how many points he scored on a the last race;
 def assign_team_points(ordered_position, teams, points: list) -> list:
     team_driver_points = []
     point_itr = 0
