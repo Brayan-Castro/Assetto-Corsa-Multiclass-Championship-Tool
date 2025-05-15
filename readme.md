@@ -9,16 +9,24 @@ Technically you could use this on online races (as long as you follow the car na
 
 Ingame Timer app that acurately gets positions when the player force quits from a race (will be added to this repo later);<br>
 Allows for the creation of custom championships and races based on the wec format, with, technically any GT3 and LMH car;<br>
+Added support for manufacturers championships (just added but probably working)
 Allows for custom point system based on its class;<br>
 Losail and Bahrain reward 1.5x points, while La Sarthe rewards 2x;<br>
 Pole position on a race gives 1 extra point.<br>
 
+## Changelog v0.5
+Code modularization;<br>
+Separated award_points() into smaller, more concise functions;<br>
+Started adding type annotations to functions;<br>
+Added comments;<br>
+Changed the project folder structure.
+
 ## Planned Changes
 
 Visualization of points (as of now, the only way to see the points on a championship is by querying the db);<br>
-Add support for manufacturers championships (in progress);<br>
-Add GUI or atleast CLI;<br>
-Modulate and clean the code.
+Add GUI;<br>
+Add a function to get and show the winners after the last race;<br>
+Clean the code some more.
 
 ## About teams.json
 
