@@ -1,2 +1,3 @@
 acLap_database.db
 .env
+**/__pycache__/
