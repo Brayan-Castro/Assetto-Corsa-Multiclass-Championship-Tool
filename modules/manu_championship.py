@@ -1,8 +1,9 @@
 import sqlite3
-import acLap
+import modules.acLap as acLap
 import json
 import modules.driver_championship as driver_championship
 from pathlib import Path
+import re
 
 # gets the raw data from the teams.json file
 def get_teams_data():
@@ -75,3 +76,13 @@ def assign_team_points(ordered_position, teams, points: list) -> list:
             else:
                 point_itr += 1
     return team_driver_points
+
+def get_manufacturers_data():
+    with acLap.db_manager() as con:
+        cur = con.cursor()
+        cur.execute('SELECT name, drivers, points FROM teams_db')
+        manu_data = cur.fetchall()
+        manu_data = [list(item) for item in manu_data]
+        for team in manu_data:
+            team[1] = re.sub("(\[|\]|')", '', team[1])
+        return manu_data

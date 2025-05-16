@@ -1,5 +1,6 @@
-import acLap
+import modules.acLap as acLap
 import sqlite3
+import re
 
 # Gets the latest race result (presumably the first on the championship) and populates the main db with name, car and points (0 atm)
 # Also separes each car in their respective category based on their id
@@ -80,3 +81,14 @@ def arrange_driver_position(final_positions):
                     LMH_list.append(position_list[i])
 
     return (GT3_list, LMH_list)
+
+def get_drivers_data():
+    with acLap.db_manager() as con:
+        cur = con.cursor()
+        cur.execute('SELECT name, car, category, points FROM champ_data')
+        driver_data = cur.fetchall()
+        driver_data = [list(item) for item in driver_data]
+        for car_name in driver_data:
+            car_name[1] = re.sub('[_]|(rss|gtm|gt3|trr|lmh|lmdh)', ' ', car_name[1]).strip().title()
+            car_name[1] = re.sub('(  |  .)', '', car_name[1])
+        return driver_data

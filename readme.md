@@ -12,18 +12,19 @@ Allows for custom point system based on its class;<br>
 Losail and Bahrain reward 1.5x points, while La Sarthe rewards 2x;<br>
 Pole position on a race gives 1 extra point.<br>
 
-## Changelog v0.5
+## Changelog v0.6
 Code modularization;<br>
 Separated award_points() into smaller, more concise functions;<br>
 Started adding type annotations to functions;<br>
 Added comments;<br>
-Changed the project folder structure.
+added a simplistic (but working) GUI :)<br>
+Changed the project folder structure (again).
 
 ## Planned Changes
-Visualization of points (as of now, the only way to see the points on a championship is by querying the db);<br>
-Add GUI;<br>
-Add a function to get and show the winners after the last race;<br>
-Clean the code some more.
+show winners after the race;<br>
+make the GUI less shit;<br>
+Clean the code some more (still needed, there is A LOT of redudancy, specially with functions, there are 3 get_team_{something} functions, and as of the creation of acLapGUI, the acLap file is mainly a wrapper? for other things);<br>
+Next step is adjust how to app finds the necessary config files and compile everything to a standalone .exe;
 
 ## About teams.json
 Driver names need to match the driver names inside the game, team names can be anything you want.

@@ -5,6 +5,7 @@ import os
 from dotenv import load_dotenv
 import math
 import modules.driver_championship as driver_championship, modules.manu_championship as manu_championship
+import re
 
 env_path= Path('config') / '.env'
 load_dotenv(dotenv_path=env_path)
@@ -85,8 +86,15 @@ def award_points(ordered_position, track, poles, teams):
     assigned_team_points = manu_championship.assign_team_points(ordered_position, teams, points)
     update_db_points(assigned_team_points, driver_points, poles)
 
+def reset_championships():
+    with db_manager() as con:
+        cur = con.cursor()
+        cur.execute('DELETE FROM champ_data')
+        cur.execute('DELETE FROM teams_db')
+        con.commit()
+
 # really only a "Wrapper" for other functions, get some basic data and calls the other functions on the right order.
-def main():
+def start_championship():
     # get the results.json from the timer app in assetto corsa main folder (required since races are time based, not position based).
     with open(os.getenv('TIMER_RESULTS_PATH'), 'r') as n:
         race_data = json.load(n)
@@ -104,8 +112,7 @@ def main():
     ordered_positions = driver_championship.arrange_driver_position(race_result)
     track = race_data[0]['track']
     poles = driver_championship.get_pole(player_list, race_result)
-
     award_points(ordered_positions, track, poles, teams)
 
 if __name__ == '__main__':
-    main()
+    print('Something Went Wrong')
