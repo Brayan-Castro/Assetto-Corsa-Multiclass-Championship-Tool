@@ -6,6 +6,7 @@ from PySide6.QtCore import Slot
 from PySide6.QtWidgets import QApplication, QPushButton, QMainWindow, QGridLayout, QWidget, QTableWidget, QTableWidgetItem, QHBoxLayout, QHeaderView
 import sys
 
+acLap.first_start()
 class acApp(QMainWindow):
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -119,5 +120,6 @@ def main():
     window = acApp()
     window.show()
     app.exec()
+
 if __name__ == '__main__':
     main()

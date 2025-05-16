@@ -9,16 +9,19 @@ def start_driver_champ(player_list: list, car_list: list):
     nice = list(zip(player_list, car_list, [0] * len(player_list)))
     with acLap.db_manager() as con:
         cur = con.cursor()
-        cur.execute('SELECT COUNT(*) FROM champ_data')
-        if cur.fetchone()[0] == 0:
+        try:
+            cur.execute('SELECT COUNT(*) FROM champ_data')
+        except sqlite3.OperationalError:
             cur.execute('CREATE TABLE IF NOT EXISTS champ_data (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, car TEXT NOT NULL, category TEXT, points INTEGER)')
-            cur.executemany('INSERT INTO champ_data (name, car, points) VALUES (?, ?, ?)', nice)
-            for i in range(len(player_list)):
+        else:
+            if cur.fetchone()[0] == 0:
+                cur.executemany('INSERT INTO champ_data (name, car, points) VALUES (?, ?, ?)', nice)
+                for i in range(len(player_list)):
             # Separates the cars into their categories.
-                if ('gt3' in car_list[i]) or ('gtm' in car_list[i]):
-                    cur.execute('UPDATE champ_data SET category = ? WHERE car = ?', ('GT3', car_list[i]))
-                else:
-                    cur.execute('UPDATE champ_data SET category = ? WHERE car = ?', ('LMH', car_list[i]))
+                    if ('gt3' in car_list[i]) or ('gtm' in car_list[i]):
+                        cur.execute('UPDATE champ_data SET category = ? WHERE car = ?', ('GT3', car_list[i]))
+                    else:
+                        cur.execute('UPDATE champ_data SET category = ? WHERE car = ?', ('LMH', car_list[i]))
 
 # Returns the name and the current points from the driver.
 def get_driver_points():
@@ -69,6 +72,8 @@ def arrange_driver_position(final_positions):
     position_list = [name[0] for name in sorted(final_positions, key=lambda x: x[1])]
     # Gets the categories so we can separate the standings list.
     driver_category = get_driver_category()
+    # print(driver_category)
+    # print(position_list)
 
     # Loops through the length of position list (as it has all drivers inside), while comparing very name in driver_category with the current name in position list;
     # If the names match, it checks which is the category of the driver, and after all iterations, we have 2 ordered lists of positions relative to their current categories.

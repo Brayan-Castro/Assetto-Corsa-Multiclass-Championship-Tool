@@ -30,6 +30,10 @@ def get_raw_race_data():
     with open(latest_file, 'r') as data:
         return json.load(data)
     
+def get_timer_race_data():
+    with open(os.getenv('TIMER_RESULTS_PATH'), 'r') as n:
+        return json.load(n)
+    
 # This function calculates how many points each race is worth.
 def calculate_points(track: str) -> list:
     base_points = [25,18,15,12,10,8,6,4,2,1]
@@ -101,20 +105,26 @@ def reset_championships():
         cur.execute('DELETE FROM teams_db')
         con.commit()
 
+def first_start():
+    race_data = get_timer_race_data()
+    car_list = [players['car'] for players in race_data]
+    player_list = [players['name'] for players in race_data]
+    driver_championship.start_driver_champ(player_list, car_list)
+    manu_championship.create_teams_champ(manu_championship.get_teams_data())
+
 # really only a "Wrapper" for other functions, get some basic data and calls the other functions on the right order.
 def start_championship():
     # get the results.json from the timer app in assetto corsa main folder (required since races are time based, not position based).
-    with open(os.getenv('TIMER_RESULTS_PATH'), 'r') as n:
-        race_data = json.load(n)
-    
+    race_data = get_timer_race_data()
     # gets basic data and stores them in lists, required for other functions
     car_list = [players['car'] for players in race_data]
     player_list = [players['name'] for players in race_data]
     race_result = [(players['name'], players['position']) for players in race_data]
-
-    # starts both the drivers and the manufacturers championship.
+    
     driver_championship.start_driver_champ(player_list, car_list)
     manu_championship.create_teams_champ(manu_championship.get_teams_data())
+
+    # starts both the drivers and the manufacturers championship.
     teams = manu_championship.set_eligible_drivers(race_result)
 
     ordered_positions = driver_championship.arrange_driver_position(race_result)

@@ -16,11 +16,14 @@ def get_teams_data():
 def create_teams_champ(teams_data):
     with acLap.db_manager() as con:
         cur = con.cursor()
-        cur.execute('SELECT COUNT(*) FROM teams_db')
-        if cur.fetchone()[0] == 0:
+        try:
+            cur.execute('SELECT COUNT(*) FROM teams_db')
+        except sqlite3.OperationalError:
             cur.execute('CREATE TABLE IF NOT EXISTS teams_db (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, drivers TEXT NOT NULL, points INT)')
-            for teams in teams_data:
-                cur.execute('INSERT INTO teams_db (name, drivers, points) VALUES (?, ?, ?)', (teams['name'], str(teams['drivers']), str(0)))
+        else:
+            if cur.fetchone()[0] == 0:
+                for teams in teams_data:
+                    cur.execute('INSERT INTO teams_db (name, drivers, points) VALUES (?, ?, ?)', (teams['name'], str(teams['drivers']), str(0)))
 
 def get_teams() -> tuple:
     with acLap.db_manager() as con:
