@@ -6,9 +6,9 @@ from pathlib import Path
 import re
 
 # gets the raw data from the teams.json file
+
 def get_teams_data():
-    project_root = Path(__file__).resolve().parent.parent
-    teams_path = project_root / 'config' / 'teams.json'
+    teams_path = acLap.path_to_files('config/teams.json')
     with open(teams_path, 'r') as n:
         return json.load(n)
     
