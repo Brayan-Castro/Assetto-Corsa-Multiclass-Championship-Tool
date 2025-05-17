@@ -1,2 +1,0 @@
-RESULTS_PATH = 'this is the path to the folder where CM stores race results, usually located in C/Users/<username>/AppData/Local/Ac Tools Content Manager/Sessions/Progress'
-TIMER_RESULTS_PATH = 'this is the path tio the folder where the timer app creates the result .json, located in /Program Files (x86)/Steam/steamapps/common/assettocorsa/apps/python/timer/results.json'
