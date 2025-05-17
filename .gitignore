@@ -6,3 +6,4 @@ acLap_database.db
 /dist
 /venv
 *.spec
+.env examples
