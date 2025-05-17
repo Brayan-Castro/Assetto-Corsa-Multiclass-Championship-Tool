@@ -4,13 +4,36 @@ import json
 import modules.driver_championship as driver_championship
 from pathlib import Path
 import re
+import sys
+import os
 
 # gets the raw data from the teams.json file
 
+def teams_path():
+    return Path.home() / 'Documents' / 'Ac Timer'
+
 def get_teams_data():
-    teams_path = acLap.path_to_files('config/teams.json')
-    with open(teams_path, 'r') as n:
-        return json.load(n)
+    default = default_teams()
+    file_path = os.path.join(teams_path(), 'teams_config.json')
+    if check_if_teams_exist():
+        with open(file_path, 'r') as f:
+            return json.load(f)
+    else:
+        with open(file_path, 'w') as file:
+            json.dump(default, file, indent=4)
+            return default_teams()
+    
+
+# def get_teams_data():
+#     project_root = Path(__file__).resolve().parent.parent
+#     teams_path = project_root / 'config' / 'teams.json'
+#     with open(teams_path, 'r') as n:
+#         return json.load(n)
+
+# def get_teams_data():
+#     teams_path = acLap.path_to_files('config/teams.json')
+#     with open(teams_path, 'r') as n:
+#         return json.load(n)
     
 # uses the data from the teams.json file to create and populate the teams database
 def create_teams_champ(teams_data):
@@ -89,3 +112,82 @@ def get_manufacturers_data():
         for team in manu_data:
             team[1] = re.sub("(\[|\]|')", '', team[1])
         return manu_data
+    
+def check_if_teams_exist():
+    teams_file = os.path.join(teams_path(), 'teams_config.json')
+    if os.path.exists(teams_file):
+        return True
+    else:
+        return False
+    
+def default_teams():
+    return [
+    {
+        "name": "Alpine", 
+        "drivers": ["Habsburg", "Schumacher"]
+    },
+    {
+        "name": "Aston LMH", 
+        "drivers": ["Gunn", "De Angelis"]
+    },
+    {
+        "name": "BMW LMH", 
+        "drivers": ["Magnussen", "Van der Linde"]
+    },
+    {
+        "name": "Cadillac LMH", 
+        "drivers": ["Nato", "Button"]
+    },
+    {
+        "name": "Ferrari LMH", 
+        "drivers": ["Fuoco", "Pier Guidi", "Kubica"]
+    },
+    {
+        "name": "Porsche LMH", 
+        "drivers": ["Christensen", "Vanthoor", "Pino"]
+    },
+    {
+        "name": "Peugeot LMH", 
+        "drivers": ["Jensen", "Jakobsen"]
+    },
+    {
+        "name": "Toyota LMH", 
+        "drivers": ["De Vries", "Buemi"]
+    },
+    {
+        "name": "Aston GT3", 
+        "drivers": ["Robichon", "Barrichello"]
+    },
+    {
+        "name": "BMW GT3", 
+        "drivers": ["Farfus", "Rossi"]
+    },
+    {
+        "name": "Corvette", 
+        "drivers": ["Edgar", "Andrade"]
+    },
+    {
+        "name": "Ferrari GT3", 
+        "drivers": ["Mann", "Castellacci"]
+    },
+    {
+        "name": "Mustang GT3", 
+        "drivers": ["Sousa", "Olsen"]
+    },
+    {
+        "name": "Lexus GT3", 
+        "drivers": ["Robin", "Schmid"]
+    },
+    {
+        "name": "Mclaren GT3", 
+        "drivers": ["Baud", "Gelael"]
+    },
+    {
+        "name": "Mercedes GT3", 
+        "drivers": ["Cressoni", "Martin"]
+    },
+    {
+        "name": "Porsche GT3", 
+        "drivers": ["Frey", "Pera"]
+    }
+]

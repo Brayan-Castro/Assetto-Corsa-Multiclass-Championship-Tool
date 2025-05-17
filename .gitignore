@@ -2,3 +2,7 @@ __pycache__/
 **/__pycache__/
 acLap_database.db
 .env
+/build
+/dist
+/venv
+*.spec

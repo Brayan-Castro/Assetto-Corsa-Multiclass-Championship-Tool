@@ -8,14 +8,7 @@ import math
 import modules.driver_championship as driver_championship, modules.manu_championship as manu_championship
 import re
 
-def path_to_files(relative_path):
-    if hasattr(sys, '_MEIPASS'):
-        base_path = Path(sys._MEIPASS)
-    else:
-        base_path = Path(__file__).resolve().parent.parent
-    return base_path / relative_path
-
-env_path = path_to_files('config/.env')
+env_path= Path('config') / '.env'
 load_dotenv(dotenv_path=env_path)
 
 def db_manager():
@@ -24,14 +17,15 @@ def db_manager():
 
 # Opens the folder where content manager stores the race result, picks the latest files and returns the opened files as a dict;
 def get_raw_race_data():
-    folder = Path(os.getenv('CM_RESULTS_PATH'))
+    folder = Path.home() / "AppData" / "Local" / "AcTools Content Manager" / "Progress" / "Sessions"
     files = list(folder.glob('*'))
     latest_file = max(files, key=lambda f: f.stat().st_mtime)
     with open(latest_file, 'r') as data:
         return json.load(data)
     
 def get_timer_race_data():
-    with open(os.getenv('TIMER_RESULTS_PATH'), 'r') as n:
+    json_path = Path.home() / 'Documents' / 'Ac Timer' / 'Results.json'
+    with open(json_path, 'r') as n:
         return json.load(n)
     
 # This function calculates how many points each race is worth.
