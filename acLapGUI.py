@@ -3,7 +3,7 @@ import modules.driver_championship as driver_championship
 import modules.manu_championship as manu_championship
 import PySide6.QtCore
 from PySide6.QtCore import Slot
-from PySide6.QtWidgets import QApplication, QPushButton, QMainWindow, QGridLayout, QWidget, QTableWidget, QTableWidgetItem, QHBoxLayout, QHeaderView
+from PySide6.QtWidgets import QApplication, QPushButton, QMainWindow, QGridLayout, QWidget, QTableWidget, QTableWidgetItem, QHeaderView
 import sys
 
 acLap.first_start()

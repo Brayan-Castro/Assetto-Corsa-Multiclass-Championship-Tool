@@ -45,13 +45,15 @@ def get_pole(player_list, race_result):
     raw_quali_times = [session['time'] for session in quali_session]
     # since the dict is ordered by car_id, it will be in the same order as the player list, so unite them to get a list of ('Player Name', 'Best Quali Time')
     quali_session = list(zip(player_list, raw_quali_times))
-
     # Gets the list of GT3 and LMH Drivers (honestly, dont know why i used this and not get_category(), but maybe because this returns 2 lists already filtered).
     ordered_list = acLap.driver_championship.arrange_driver_position(race_result)
-
     # Separates the quali_session list in 2 based on driver category.
     gt3_laps = [time for time in quali_session if time[0] in ordered_list[0]]
     lmh_laps = [time for time in quali_session if time[0] in ordered_list[1]]
+    # for time in quali_session:
+    #     print(time)
+    #     if time[0] in ordered_list[1]:
+    #         ...
 
     # Sorts each list by their best lap time.
     gt3_laps = sorted(gt3_laps, key=lambda x: x[1])
