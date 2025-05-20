@@ -30,7 +30,7 @@ def get_timer_race_data():
     
 # This function calculates how many points each race is worth.
 def calculate_points(track: str) -> list:
-    base_points = [25,18,15,12,10,8,6,4,2,1]
+    base_points = [25,18,15,12,10,8,6,4,2,1,0]
 
     # This is the point modifier for the longer races.
     if 'lemans' in track:
@@ -77,7 +77,6 @@ def award_points(ordered_position, track, poles, teams):
     points = calculate_points(track)
     driver_points = []
     points_itr = 0
-
     # Unites the driver names with their points in a list of dicts.
     for category in range(len(ordered_position)):
         for driver in ordered_position[category]:
@@ -85,7 +84,7 @@ def award_points(ordered_position, track, poles, teams):
                 points_itr = 0
             driver_points.append({
                 "name": driver,
-                "points": points[points_itr]
+                "points": points[points_itr] if points_itr < len(points) else points[-1]
             })
             points_itr += 1
 

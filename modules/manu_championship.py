@@ -82,7 +82,7 @@ def set_eligible_drivers(race_result):
 # And how many points he scored on a the last race;
 def assign_team_points(ordered_position, teams, points: list) -> list:
     team_driver_points = []
-    point_itr = 0
+    points_itr = 0
     # ordered_position is a list of lists where [0] is a list of GT3 drivers and [1] is a list of LMH drivers.
     for category in range(len(ordered_position)):
         # Loops through all the drivers in the category.
@@ -94,13 +94,13 @@ def assign_team_points(ordered_position, teams, points: list) -> list:
                     team_driver_points.append({
                         "name": team[0],
                         "driver": driver,
-                        "points": points[point_itr]
+                        "points": points[points_itr] if points_itr < len(points) else points[-1]
                     })
             # This iterator is exclusive to the points list because in WEC teams/drivers get awarded points based on their class standing not overall standing;
-            if point_itr >= len(teams[category]):
-                point_itr = 0
+            if points_itr >= len(teams[category]):
+                points_itr = 0
             else:
-                point_itr += 1
+                points_itr += 1
     return team_driver_points
 
 def get_manufacturers_data():
