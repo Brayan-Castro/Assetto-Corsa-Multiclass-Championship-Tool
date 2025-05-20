@@ -3,18 +3,21 @@ import modules.driver_championship as driver_championship
 import modules.manu_championship as manu_championship
 import PySide6.QtCore
 from PySide6.QtCore import Slot
+from PySide6.QtGui import QIcon
 from PySide6.QtWidgets import QApplication, QPushButton, QMainWindow, QGridLayout, QWidget, QTableWidget, QTableWidgetItem, QHeaderView
 import sys
+import os
 
 acLap.first_start()
 class acApp(QMainWindow):
     def __init__(self, parent=None):
         super().__init__(parent)
 
+
         # Data from drivers and manufacturers (lists of lists)
         self.driver_data = driver_championship.get_drivers_data()
         self.manufacturers_data = manu_championship.get_manufacturers_data()
-
+        self.setWindowIcon(QIcon(os.path.join(os.path.dirname(__file__), 'app_icon.ico')))
         # Creates the 2 tables with the data
         self.drivers_table = self.show_data(self.driver_data)
         self.teams_table = self.show_data(self.manufacturers_data)
@@ -110,6 +113,8 @@ class acApp(QMainWindow):
                 table.setHorizontalHeaderLabels(['Name', 'Drivers', 'Points'])
             for row_index, row_data in enumerate(data):
                 for col_index, col_data in enumerate(row_data):
+                    if type(col_data) == tuple:
+                        col_data = ', '.join(col_data)
                     tb_item = QTableWidgetItem(str(col_data))
                     table.setItem(row_index, col_index, tb_item)
             return table

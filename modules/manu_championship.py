@@ -6,8 +6,7 @@ from pathlib import Path
 import re
 import sys
 import os
-
-# gets the raw data from the teams.json file
+from collections import defaultdict
 
 def teams_path():
     return Path.home() / 'Documents' / 'Ac Timer'
@@ -23,19 +22,6 @@ def get_teams_data():
             json.dump(default, file, indent=4)
             return default_teams()
     
-
-# def get_teams_data():
-#     project_root = Path(__file__).resolve().parent.parent
-#     teams_path = project_root / 'config' / 'teams.json'
-#     with open(teams_path, 'r') as n:
-#         return json.load(n)
-
-# def get_teams_data():
-#     teams_path = acLap.path_to_files('config/teams.json')
-#     with open(teams_path, 'r') as n:
-#         return json.load(n)
-    
-# uses the data from the teams.json file to create and populate the teams database
 def create_teams_champ(teams_data):
     with acLap.db_manager() as con:
         cur = con.cursor()
@@ -60,57 +46,53 @@ def get_team_points() -> tuple:
         cur.execute('SELECT name, points FROM teams_db')
         return cur.fetchall()
     
-# Gets a list of teams and its drivers and uses ordernate_position() to check which driver from the team finished first.
-# As per WEC rules, teams only get rewarded points for the driver on the better position.
+# Just as arrange_driver_position, does a bunch of random things and somehow is the heart and soul of the manufacturer championship.
 def set_eligible_drivers(race_result):
     teams = get_teams()
     ordered_driver_lists = driver_championship.arrange_driver_position(race_result)
-
     eligible_drivers = [[],[]]
+    ordered_team = [[],[]]
+    no_duplicates = []
+    seen = []
 
-    # Populates the 2 driver lists with tuples based on the driver with the best position on each team.
     for category in range(len(ordered_driver_lists)):
         for team in teams:
             for driver in ordered_driver_lists[category]:
-                if driver in team[1]:
-                    eligible_drivers[category].append([team[0], driver])
-                    continue
-    
-    return eligible_drivers
+                if driver[0] in team[1]:
+                    eligible_drivers[category].append((team[0], driver[0], driver[1]))
 
-# This function creates a list of dicts with the keys 'team', 'driver' and 'points', based on the eligible driver for points on a team;
-# And how many points he scored on a the last race;
-def assign_team_points(ordered_position, teams, points: list) -> list:
-    team_driver_points = []
-    points_itr = 0
-    # ordered_position is a list of lists where [0] is a list of GT3 drivers and [1] is a list of LMH drivers.
-    for category in range(len(ordered_position)):
-        # Loops through all the drivers in the category.
-        for driver in ordered_position[category]:
-            # Loops through all the teams in their respective category.
-            for team in teams[category]:
-                # If a driver on the list of eligible drivers is on a team, it appends to the dict all the necessary info.
-                if driver == team[1]:
-                    team_driver_points.append({
-                        "name": team[0],
-                        "driver": driver,
-                        "points": points[points_itr] if points_itr < len(points) else points[-1]
-                    })
-            # This iterator is exclusive to the points list because in WEC teams/drivers get awarded points based on their class standing not overall standing;
-            if points_itr >= len(teams[category]):
-                points_itr = 0
-            else:
-                points_itr += 1
-    return team_driver_points
+        for name in ordered_driver_lists[category]:
+            for team_name in eligible_drivers[category]:
+                if name[0] == team_name[1]:
+                    ordered_team[category].append(team_name)
+
+        for team in ordered_team[category]:
+            if team[0] not in seen:
+                no_duplicates.append({
+                    "name": team[0],
+                    "driver": team[1],
+                    "points": team[2]
+                })
+                seen.append(team[0])
+    return no_duplicates
 
 def get_manufacturers_data():
+    drivers = [driver[0] for driver in driver_championship.get_driver_class()]
+    team_dict = defaultdict(list)
     with acLap.db_manager() as con:
         cur = con.cursor()
         cur.execute('SELECT name, drivers, points FROM teams_db')
         manu_data = cur.fetchall()
-        manu_data = [list(item) for item in manu_data]
+
         for team in manu_data:
-            team[1] = re.sub("(\[|\]|')", '', team[1])
+            for driver in drivers:
+                if driver in team[1]:
+                    team_dict[(team[0], team[2])].append(driver)
+
+        result = [(team, tuple(drivers), number) for (team, number), drivers in team_dict.items()]
+        
+        manu_data = [list(item) for item in result]
+
         return manu_data
     
 def check_if_teams_exist():
