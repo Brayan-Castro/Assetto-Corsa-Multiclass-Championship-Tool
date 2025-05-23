@@ -1,0 +1,108 @@
+{
+  "track": "spa-layout_wec_2024",
+  "number_of_sessions": 2,
+  "players": [
+    {
+      "name": "Brayan Castro",
+      "car": "trr_gt3_porsche_992_gt3_r",
+      "skin": "2025 wec manthey purerxcing #92"
+    },
+    {
+      "name": "Habsburg",
+      "car": "trr_lmdh_alpine_a424",
+      "skin": "2024_36_lm_alpine"
+    },
+    {
+      "name": "Gunn",
+      "car": "trr_lmh_aston_martin_valkyrie_amr-lmh",
+      "skin": "007"
+    },
+    {
+      "name": "Magnussen",
+      "car": "trr_lmdh_bmw_m_hybrid_v8",
+      "skin": "24_bmw_team_rll"
+    },
+    {
+      "name": "Nato",
+      "car": "trr_lmdh_cadillac_v-series.r",
+      "skin": "wec 12 jota"
+    },
+    {
+      "name": "Fuoco",
+      "car": "trr_lmh_ferrari_499p",
+      "skin": "2025_50_ferrari_af_corse"
+    },
+    {
+      "name": "Christensen",
+      "car": "trr_lmdh_porsche_963",
+      "skin": "#5_wec"
+    },
+    {
+      "name": "Jensen",
+      "car": "trr_lmh_peugeot_9x8-24",
+      "skin": "w3"
+    },
+    {
+      "name": "De Vries",
+      "car": "trr_lmh_toyota_gr010_hybrid",
+      "skin": "2024 #7 toyota gazoo racing"
+    },
+    {
+      "name": "Robichon",
+      "car": "trr_gt3_aston_martin_vantage_gt3_evo",
+      "skin": "2024_wec_27_heart of racing"
+    },
+    {
+      "name": "Farfus",
+      "car": "trr_gt3_bmw_m4_gt3",
+      "skin": "2025 wec - wrt #31"
+    },
+    {
+      "name": "Rossi",
+      "car": "trr_gt3_bmw_m4_gt3",
+      "skin": "2025 wec 46"
+    },
+    {
+      "name": "Edgar",
+      "car": "trr_gt3_corvette_z06_gt3.r",
+      "skin": "wec 2025 - tf sport #33"
+    },
+    {
+      "name": "Mann",
+      "car": "trr_gt3_ferrari_296_gt3",
+      "skin": "2025 wec - vista af corse #21"
+    },
+    {
+      "name": "Sousa",
+      "car": "trr_gt3_ford_mustang_gt3",
+      "skin": "2025_wec_proton_77"
+    },
+    {
+      "name": "Robin",
+      "car": "trr_gt3_lexus_rc_f_gt3",
+      "skin": "2025 wec #78"
+    },
+    {
+      "name": "Baud",
+      "car": "trr_gt3_mclaren_720s_gt3_evo",
+      "skin": "wec 2025 - unitedautosports #59"
+    },
+    {
+      "name": "Cressoni",
+      "car": "trr_gt3_mercedes-amg_gt3_evo",
+      "skin": "2025 wec #60"
+    },
+    {
+      "name": "Frey",
+      "car": "trr_gt3_porsche_992_gt3_r",
+      "skin": "2025 iron dames #85"
+    }
+  ],
+  "sessions": [...],
+  "extras": [
+    {
+      "name": "bestlap",
+      "time": 178400
+    }
+  ]
+}

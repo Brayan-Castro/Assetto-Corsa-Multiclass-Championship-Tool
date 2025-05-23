@@ -3,8 +3,8 @@ import sqlite3
 import re
 
 def start_driver_champ():
-    car_list = [players['car'] for players in acLap.get_timer_race_data()]
-    player_list = [players['name'] for players in acLap.get_timer_race_data()]
+    car_list = [driver['car'] for driver in acLap.get_raw_race_data()['players']]
+    player_list = [driver['name'] for driver in acLap.get_raw_race_data()['players']]
     nice = list(zip(player_list, car_list, [0] * len(player_list)))
     with acLap.db_manager() as con:
         cur = con.cursor()
@@ -36,7 +36,7 @@ def get_driver_class():
     
 # Function that returns a tuple with the pole of both GT3 and LMH.
 def get_pole(race_result):
-    player_list = [players['name'] for players in acLap.get_timer_race_data()]
+    player_list = [driver['name'] for driver in acLap.get_raw_race_data()['players']]
     # Gets the raw qualification times from Content Manager
     raw_quali_times = [session['time'] for session in acLap.get_raw_race_data()['sessions'][0]['bestLaps']]
 

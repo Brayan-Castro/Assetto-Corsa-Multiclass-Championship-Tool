@@ -19,13 +19,8 @@ def get_raw_race_data():
     with open(latest_file, 'r') as data:
         return json.load(data)
     
-def get_timer_race_data():
-    json_path = Path.home() / 'Documents' / 'Ac Timer' / 'Results.json'
-    with open(json_path, 'r') as n:
-        return json.load(n)
-    
 def calculate_points() -> list:
-    track = get_timer_race_data()[0]['track']
+    track = get_raw_race_data()['track']
 
     # Look, i now this is dumb, but it works ok.
     base_points = [25,18,15,12,10,8,6,4,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
@@ -90,8 +85,16 @@ def first_start():
 
 # really only a "Wrapper" for other functions, get some basic data and calls the other functions on the right order.
 def start_championship():
-    race_result = [(players['name'], players['position']) for players in get_timer_race_data()]
-    
+    driver_list = [driver['name'] for driver in get_raw_race_data()['players']]
+    pos_list = [time for time in get_raw_race_data()['sessions'][1]['raceResult']]
+
+
+    race_result = []
+    for position in pos_list:
+        for driver in driver_list:
+            if position == driver_list.index(driver):
+                race_result.append((driver, pos_list.index(position)))
+
     # starts both the drivers and the manufacturers championship.
     driver_championship.start_driver_champ()
     manu_championship.create_teams_champ(manu_championship.get_teams_data())
